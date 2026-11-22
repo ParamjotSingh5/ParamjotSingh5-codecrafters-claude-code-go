@@ -52,13 +52,13 @@ func main() {
 						"properties": map[string]any{
 							"file_path": map[string]any{
 								"type": "string",
-								"description": "The path to the file to read"
+								"description": "The path to the file to read",
 							}
 						},
-						"required": []string{"file_path"}
-					}
-				})
-			}
+						"required": []string{"file_path"},
+					},
+				}),
+			},
 		},
 	)
 	if err != nil {
