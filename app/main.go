@@ -53,7 +53,7 @@ func main() {
 							"file_path": map[string]any{
 								"type": "string",
 								"description": "The path to the file to read",
-							}
+							},
 						},
 						"required": []string{"file_path"},
 					},
