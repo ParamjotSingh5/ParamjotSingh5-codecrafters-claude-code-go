@@ -16,7 +16,6 @@ func Read(filePath string) {
 	}
 
 	filePathArg := result["file_path"].(string)
-	fmt.Println(filePathArg)
 
 	data, err := os.ReadFile(filePathArg)
 
