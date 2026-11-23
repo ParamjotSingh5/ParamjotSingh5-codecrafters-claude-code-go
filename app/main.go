@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/codecrafters-io/claude-code-starter-go/app/tools"
 	"github.com/openai/openai-go/v3"
 	"github.com/openai/openai-go/v3/option"
 )
@@ -29,7 +30,6 @@ func main() {
 		panic("Env variable OPENROUTER_API_KEY not found")
 	}
 
-
 	client := openai.NewClient(option.WithAPIKey(apiKey), option.WithBaseURL(baseUrl))
 	resp, err := client.Chat.Completions.New(context.Background(),
 		openai.ChatCompletionNewParams{
@@ -45,13 +45,13 @@ func main() {
 			},
 			Tools: []openai.ChatCompletionToolUnionParam{
 				openai.ChatCompletionFunctionTool(openai.FunctionDefinitionParam{
-					Name: "Read",
+					Name:        "Read",
 					Description: openai.String("Read and return the contents of a file"),
 					Parameters: openai.FunctionParameters{
 						"type": "object",
 						"properties": map[string]any{
 							"file_path": map[string]any{
-								"type": "string",
+								"type":        "string",
 								"description": "The path to the file to read",
 							},
 						},
@@ -74,4 +74,11 @@ func main() {
 
 	// TODO: Uncomment the line below to pass the first stage
 	fmt.Print(resp.Choices[0].Message.Content)
+
+	unions := resp.Choices[0].Message.ToolCalls
+
+	if unions[0].Function.Name == "Read" {
+		tools.Read(unions[0].Function.Arguments)
+	}
+
 }
