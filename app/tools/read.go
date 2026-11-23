@@ -24,9 +24,5 @@ func Read(filePath string) {
 		log.Fatal(err)
 	}
 
-	write, err := os.Stdout.Write(data)
-	if err != nil {
-		return
-	}
-
+	fmt.Print(string(data))
 }
