@@ -77,6 +77,10 @@ func main() {
 
 	unions := resp.Choices[0].Message.ToolCalls
 
+	if unions == nil{
+		os.Exit(0)
+	}
+
 	if unions[0].Function.Name == "Read" {
 		tools.Read(unions[0].Function.Arguments)
 	}
