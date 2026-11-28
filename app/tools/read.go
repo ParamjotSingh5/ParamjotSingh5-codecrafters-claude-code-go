@@ -33,21 +33,16 @@ func (r *ReadTool) ParametersSchema() map[string]any {
 }
 
 func (r *ReadTool) Execute(input json.RawMessage) (string, error) {
+
 	var params ReadInput
 
 	if err := json.Unmarshal(input, &params); err != nil {
 		return "", fmt.Errorf("invalid input: %w", err)
 	}
 
-	var result map[string]any
-	err := json.Unmarshal([]byte(params.FilePath), &result)
-	if err != nil {
-		return "", err
-	}
+	fmt.Printf("Reading file: %s", params.FilePath)
 
-	filePathArg := result["file_path"].(string)
-
-	data, err := os.ReadFile(filePathArg)
+	data, err := os.ReadFile(params.FilePath)
 
 	if err != nil {
 

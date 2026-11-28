@@ -49,5 +49,7 @@ func (m *Manager) ExecuteCall(toolName string, input string) (string, error) {
 		return "", fmt.Errorf("unknown tool: %s", toolName)
 	}
 
+	fmt.Printf("Executing tool: %s\n", toolName)
+
 	return tool.Execute(json.RawMessage(input))
 }
